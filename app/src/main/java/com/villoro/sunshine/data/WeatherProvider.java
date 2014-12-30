@@ -160,11 +160,27 @@ public class WeatherProvider extends ContentProvider {
                  break;
              }
              case LOCATION_ID: {
-                 retCursor = null;
+                 retCursor = mOpenHelper.getReadableDatabase().query(
+                         WeatherContract.LocationEntry.TABLE_NAME,
+                         projection,
+                         WeatherContract.LocationEntry._ID + " = '" + ContentUris.parseId(uri) + "'",
+                         null,
+                         null,
+                         null,
+                         sortOrder
+                 );
                  break;
              }
              case LOCATION: {
-                 retCursor = null;
+                 retCursor = mOpenHelper.getReadableDatabase().query(
+                         WeatherContract.LocationEntry.TABLE_NAME,
+                         projection,
+                         selection,
+                         selectionArgs,
+                         null,
+                         null,
+                         sortOrder
+                 );
                  break;
              }
 
