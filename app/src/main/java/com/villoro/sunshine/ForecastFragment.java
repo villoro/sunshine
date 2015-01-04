@@ -139,7 +139,6 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onStart() {
         super.onStart();
-        updateWeather();
     }
 
     private void updateWeather(){
@@ -147,6 +146,14 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
                 getString(getString(R.string.pref_location_key),
                         getString(R.string.pref_location_default));
         new FetchWeatherTask(getActivity()).execute(location);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mLocation != null && !mLocation.equals(Utility.getPreferredLocation(getActivity()))) {
+            getLoaderManager().restartLoader(FORECAST_LOADER, null, this);
+        }
     }
 
     @Override
