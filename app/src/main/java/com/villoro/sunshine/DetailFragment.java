@@ -54,7 +54,9 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             WeatherContract.WeatherEntry.COLUMN_HUMIDITY,
             WeatherContract.WeatherEntry.COLUMN_WIND_SPEED,
             WeatherContract.WeatherEntry.COLUMN_DEGREES,
-            WeatherContract.WeatherEntry.COLUMN_PRESSURE
+            WeatherContract.WeatherEntry.COLUMN_PRESSURE,
+            WeatherContract.WeatherEntry.COLUMN_WEATHER_ID,
+            WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING
     };
 
     public DetailFragment() {
@@ -151,7 +153,8 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         mDateView.setText(dateString);
         mFriendlyDateView.setText(Utility.getFormattedMonthDay(getActivity(), date));
 
-        mIconView.setImageResource(R.drawable.ic_launcher);
+        int weatherId = data.getInt(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_WEATHER_ID));
+        mIconView.setImageResource(Utility.getArtResourceForWeatherCondition(weatherId));
 
         String weatherDescription = data.getString(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_SHORT_DESC));
         mDescriptionView.setText(weatherDescription);
