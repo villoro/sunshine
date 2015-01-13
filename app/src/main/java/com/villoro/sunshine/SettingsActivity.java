@@ -3,11 +3,15 @@ package com.villoro.sunshine;
 /**
  * Created by Arnau on 22/07/2014.
  */
+import android.annotation.TargetApi;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 
 import com.villoro.sunshine.data.WeatherContract;
 
@@ -87,4 +91,9 @@ public class SettingsActivity extends PreferenceActivity
         return true;
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    public Intent getParentActivityIntent() {
+        return super.getParentActivityIntent().addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    }
 }

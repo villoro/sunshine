@@ -10,15 +10,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements ForecastFragment.Callback {
 
     private final String LOG_TAG = "MainActivity";
     boolean mTwoPane;
+    ForecastFragment forecastFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        forecastFragment = new ForecastFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_forecast, forecastFragment);
+
         if(findViewById(R.id.weather_detail_container) != null){
             mTwoPane = true;
             if(savedInstanceState == null){
@@ -28,6 +33,7 @@ public class MainActivity extends ActionBarActivity {
         } else {
             mTwoPane = false;
         }
+
     }
 
 
@@ -72,4 +78,20 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    @Override
+    public void onItemSelected(String date) {
+        if(mTwoPane){
+            Bundle args = new Bundle();
+            args.putString(DetailFragment.DATE_KEY, date);
+            DetailFragment fragment = new DetailFragment();
+            fragment.setArguments(args);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.weather_detail_container, fragment).commit();
+        } else if (!mTwoPane){
+            Intent intent = new Intent(this, DetailActivity.class)
+                            .putExtra(DetailFragment.DATE_KEY, date);
+            startActivity(intent);
+        }
+    }
 }
