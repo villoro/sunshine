@@ -14,7 +14,7 @@ import android.view.MenuItem;
 public class MainActivity extends ActionBarActivity implements ForecastFragment.Callback {
 
     private final String LOG_TAG = "MainActivity";
-    boolean mTwoPane;
+    private boolean mTwoPane;
 
 
     @Override
@@ -31,6 +31,10 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
         } else {
             mTwoPane = false;
         }
+
+        ForecastFragment forecastFragment = ((ForecastFragment) getSupportFragmentManager().
+                findFragmentById(R.id.fragment_forecast));
+        forecastFragment.setUseTodayLayout(!mTwoPane);
 
     }
 
