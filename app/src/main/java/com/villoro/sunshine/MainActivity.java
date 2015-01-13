@@ -1,6 +1,7 @@
 package com.villoro.sunshine;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -14,15 +15,12 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
 
     private final String LOG_TAG = "MainActivity";
     boolean mTwoPane;
-    ForecastFragment forecastFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        forecastFragment = new ForecastFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_forecast, forecastFragment);
 
         if(findViewById(R.id.weather_detail_container) != null){
             mTwoPane = true;
@@ -63,9 +61,11 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
     }
 
     private void openPreferredLocationInMap(){
-        String location = PreferenceManager.getDefaultSharedPreferences(this).
-                getString(getString(R.string.pref_location_key),
-                        getString(R.string.pref_location_default));
+        SharedPreferences sharedPrefs =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        String location = sharedPrefs.getString(
+                getString(R.string.pref_location_key),
+                getString(R.string.pref_location_default));
 
         Uri geoLocation = Uri.parse("geo:0,0?").buildUpon().appendQueryParameter("q", location).build();
 
@@ -81,8 +81,12 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
     @Override
     public void onItemSelected(String date) {
         if(mTwoPane){
+            // In two-pane mode, show the detail view in this activity by
+            // adding or replacing the detail fragment using a
+            // fragment transaction.
             Bundle args = new Bundle();
             args.putString(DetailFragment.DATE_KEY, date);
+
             DetailFragment fragment = new DetailFragment();
             fragment.setArguments(args);
 

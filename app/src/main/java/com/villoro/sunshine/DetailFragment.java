@@ -33,11 +33,13 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     private static final String LOG_TAG = DetailFragment.class.getSimpleName();
 
     private  static final String FORECAST_SHARE_HASHTAG = " #SunshineApp";
-    private String mForecastStr;
+
 
     private ShareActionProvider mShareActionProvider;
     private String mLocation;
     private String mForecast;
+    private String mDateStr;
+    private String mForecastStr;
 
     private static final int DETAIL_LOADER = 0;
 
@@ -64,8 +66,23 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString(LOCATION_KEY, mLocation);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            mDateStr = arguments.getString(DATE_KEY);
+        }
+
+        if (savedInstanceState != null) {
+            mLocation = savedInstanceState.getString(LOCATION_KEY);
+        }
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 
         mIconView = (ImageView) rootView.findViewById(R.id.detail_icon);
@@ -81,8 +98,18 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        Bundle arguments = getArguments();
+        if(arguments != null && arguments.containsKey(DATE_KEY) && mLocation != null
+                && !mLocation.equals(Utility.getPreferredLocation(getActivity()))) {
+            getLoaderManager().restartLoader(DETAIL_LOADER, null, this);
+        }
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
+        // Inflate the menu; this adds items to the action bar if it is present.
         inflater.inflate(R.menu.detailfragment, menu);
 
         // Retrieve the share menu item
@@ -119,28 +146,15 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        Bundle arguments = getArguments();
-        if(arguments != null && arguments.containsKey(DATE_KEY) && mLocation != null
-                && !mLocation.equals(Utility.getPreferredLocation(getActivity()))) {
-            getLoaderManager().restartLoader(DETAIL_LOADER, null, this);
-        }
-    }
-
-    @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         Log.v(LOG_TAG, "In onCreateLoader");
-
-        String dateStr = getArguments().getString(DetailFragment.DATE_KEY);
 
         // Sort order:  Ascending, by date.
         String sortOrder = WeatherContract.WeatherEntry.COLUMN_DATETEXT + " ASC";
 
         mLocation = Utility.getPreferredLocation(getActivity());
         Uri weatherForLocationUri = WeatherContract.WeatherEntry.buildWeatherLocationWithDate(
-                mLocation, dateStr);
-        Log.v(LOG_TAG, weatherForLocationUri.toString());
+                mLocation, mDateStr);
 
         // Now create and return a CursorLoader that will take care of
         // creating a Cursor for the data being displayed.
@@ -159,14 +173,14 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         Log.v(LOG_TAG, "In onLoadFinished");
         if (!data.moveToFirst()) { return; }
 
+        int weatherId = data.getInt(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_WEATHER_ID));
+        mIconView.setImageResource(Utility.getArtResourceForWeatherCondition(weatherId));
+
         String date = data.getString(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_DATETEXT));
         String dateString = Utility.formatDate(date);
 
         mDateView.setText(dateString);
         mFriendlyDateView.setText(Utility.getFormattedMonthDay(getActivity(), date));
-
-        int weatherId = data.getInt(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_WEATHER_ID));
-        mIconView.setImageResource(Utility.getArtResourceForWeatherCondition(weatherId));
 
         String weatherDescription = data.getString(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_SHORT_DESC));
         mDescriptionView.setText(weatherDescription);
@@ -195,8 +209,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
         // We still need this for the share intent
         mForecast = String.format("%s - %s - %s/%s", dateString, weatherDescription, high, low);
-
-        Log.v(LOG_TAG, "Forecast String: " + mForecast);
 
         // If onCreateOptionsMenu has already happened, we need to update the share intent now.
         if (mShareActionProvider != null) {

@@ -18,11 +18,13 @@ public class DetailActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
         if (savedInstanceState == null) {
             String date = getIntent().getStringExtra(DetailFragment.DATE_KEY);
 
             Bundle arguments = new Bundle();
             arguments.putString(DetailFragment.DATE_KEY, date);
+
             DetailFragment fragment = new DetailFragment();
             fragment.setArguments(arguments);
 
