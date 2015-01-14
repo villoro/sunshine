@@ -179,8 +179,9 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         String date = data.getString(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_DATETEXT));
         String dateString = Utility.formatDate(date);
 
-        mDateView.setText(dateString);
-        mFriendlyDateView.setText(Utility.getFormattedMonthDay(getActivity(), date));
+
+        mFriendlyDateView.setText(Utility.getFriendlyDayString(getActivity(), date));
+        mDateView.setText(Utility.getFormattedMonthDay(getActivity(), date));
 
         String weatherDescription = data.getString(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_SHORT_DESC));
         mDescriptionView.setText(weatherDescription);

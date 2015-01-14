@@ -27,5 +27,11 @@
         <!-- Needs to be empty -->
     </style>
 
+    <style name="GreyText">
+        <item name="android:textColor">@color/sunshine_black</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:textAppearance">?android:textAppearanceLarge</item>
+    </style>
+
 
 </resources>

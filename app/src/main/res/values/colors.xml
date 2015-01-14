@@ -3,6 +3,9 @@
 
     <color name="grey">#cccccc</color>
     <color name="sunshine_blue">#ff1ca8f4</color>
+    <color name="sunshine_white">#ffffff</color>
+    <color name="sunshine_black">#ff000000</color>
     <color name="sunshine_light_blue">#ff64c2f4</color>
+    <color name="sunshine_light_grey">#646464</color>
 
 </resources>
