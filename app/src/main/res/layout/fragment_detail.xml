@@ -106,6 +106,12 @@
             style="@style/GreyText"
             android:fontFamily="sans-serif-light"/>
 
+        <!--
+        <com.villoro.sunshine.MyView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"/>
+            -->
+
     </LinearLayout>
 </ScrollView>
 
