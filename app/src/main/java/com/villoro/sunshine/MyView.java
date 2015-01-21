@@ -34,4 +34,5 @@ public class MyView extends View {
         canvas.drawRect(0, 0, x/2, y, paint);
 
     }
+
 }

@@ -32,6 +32,7 @@ public class TestProvider extends AndroidTestCase {
 
      // brings our database to an empty state
      public void deleteAllRecords() {
+
          mContext.getContentResolver().delete(
                  WeatherEntry.CONTENT_URI,
                  null,
