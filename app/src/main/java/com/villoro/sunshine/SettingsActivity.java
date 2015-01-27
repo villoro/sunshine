@@ -13,7 +13,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 
 import com.villoro.sunshine.data.WeatherContract;
-import com.villoro.sunshine.service.SunshineService;
+import com.villoro.sunshine.sync.SunshineSyncAdapter;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings.
@@ -67,9 +67,7 @@ public class SettingsActivity extends PreferenceActivity
         // are we starting the preference activity?
         if ( !mBindingPreference ) {
             if (preference.getKey().equals(getString(R.string.pref_location_key))) {
-                Intent intent = new Intent(this, SunshineService.class);
-                intent.putExtra(SunshineService.LOCATION_QUERY_EXTRA, value.toString());
-                startService(intent);
+                SunshineSyncAdapter.syncImmediately(this);
             } else {
                 // notify code that weather may be impacted
                 getContentResolver().notifyChange(WeatherContract.WeatherEntry.CONTENT_URI, null);

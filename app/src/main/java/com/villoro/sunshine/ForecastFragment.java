@@ -21,7 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.villoro.sunshine.data.WeatherContract;
-import com.villoro.sunshine.service.SunshineService;
+import com.villoro.sunshine.sync.SunshineSyncAdapter;
 
 import java.util.Date;
 
@@ -161,21 +161,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     private void updateWeather() {
-        String location = Utility.getPreferredLocation(getActivity());
-
-        Intent alarmIntent = new Intent(getActivity(), SunshineService.AlarmReceiver.class);
-        alarmIntent.putExtra(SunshineService.LOCATION_QUERY_EXTRA, location);
-
-        //Wrap in a pending intent which only fires once.
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, alarmIntent,
-                PendingIntent.FLAG_ONE_SHOT);
-
-        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 5000, pendingIntent);
-
-        Intent intent = new Intent(getActivity(), SunshineService.class);
-        intent.putExtra(SunshineService.LOCATION_QUERY_EXTRA, location);
-        getActivity().startService(intent);
+        SunshineSyncAdapter.syncImmediately(getActivity());
     }
 
     @Override
