@@ -13,7 +13,7 @@
 
     <!-- ActionBar style -->
     <style name="ActionBar.Solid.Sunshine"
-    parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <item name="background">@color/sunshine_blue</item>
     </style>
 

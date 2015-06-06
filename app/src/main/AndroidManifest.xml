@@ -12,7 +12,8 @@
         android:name="android.permission.WRITE_SYNC_SETTINGS"/>
     <uses-permission
         android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
-
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
 
     <application
@@ -47,9 +48,9 @@
                 android:value="com.villoro.sunshine.MainActivity" />
         </activity>
 
-        <service android:name=".service.SunshineService" />
 
-        <receiver android:name=".service.SunshineService$AlarmReceiver" />
+
+
 
         <!-- SyncAdapter's dummy authentication service -->
         <service
