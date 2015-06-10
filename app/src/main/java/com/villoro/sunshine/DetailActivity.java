@@ -12,18 +12,17 @@ import android.view.MenuItem;
 
 public class DetailActivity extends ActionBarActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
         if (savedInstanceState == null) {
-            String date = getIntent().getStringExtra(DetailFragment.DATE_KEY);
+            // Create the detail fragment and add it to the activity
+            // using a fragment transaction.
 
             Bundle arguments = new Bundle();
-            arguments.putString(DetailFragment.DATE_KEY, date);
+            arguments.putParcelable(DetailFragment.DETAIL_URI, getIntent().getData());
 
             DetailFragment fragment = new DetailFragment();
             fragment.setArguments(arguments);
@@ -33,7 +32,6 @@ public class DetailActivity extends ActionBarActivity {
                     .commit();
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -49,11 +47,9 @@ public class DetailActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

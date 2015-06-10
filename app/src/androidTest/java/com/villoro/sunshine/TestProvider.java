@@ -256,7 +256,7 @@ public class TestProvider extends AndroidTestCase {
      static ContentValues createKalamazooWeatherValues(long locationRowId) {
          ContentValues weatherValues = new ContentValues();
          weatherValues.put(WeatherEntry.COLUMN_LOC_KEY, locationRowId);
-         weatherValues.put(WeatherEntry.COLUMN_DATETEXT, KALAMAZOO_WEATHER_START_DATE);
+         weatherValues.put(WeatherEntry.COLUMN_DATE, KALAMAZOO_WEATHER_START_DATE);
          weatherValues.put(WeatherEntry.COLUMN_DEGREES, 1.2);
          weatherValues.put(WeatherEntry.COLUMN_HUMIDITY, 1.5);
          weatherValues.put(WeatherEntry.COLUMN_PRESSURE, 1.1);
