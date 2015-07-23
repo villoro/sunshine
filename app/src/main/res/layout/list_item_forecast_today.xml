@@ -8,7 +8,7 @@
     android:orientation="horizontal"
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
-    android:background="@color/sunshine_blue">
+    android:background="@color/primary">
 
     <LinearLayout
         android:layout_height="wrap_content"
@@ -21,21 +21,21 @@
             android:id="@+id/list_item_date_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/sunshine_white"
+            android:textColor="@color/white"
             android:textSize="22sp"/>
 
         <TextView
             android:id="@+id/list_item_high_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/sunshine_white"
+            android:textColor="@color/white"
             android:textSize="72sp"/>
 
         <TextView
             android:id="@+id/list_item_low_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/sunshine_white"
+            android:textColor="@color/white"
             android:textSize="36sp"/>
     </LinearLayout>
 

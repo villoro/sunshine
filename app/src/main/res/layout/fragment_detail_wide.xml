@@ -23,14 +23,14 @@
                 android:id="@+id/detail_day_textview"
                 android:textSize="24sp"
                 android:fontFamily="sans-serif-condensed"
-                android:textColor="@color/sunshine_black"/>
+                android:textColor="@color/black"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/detail_date_textview"
                 android:textSize="16sp"
-                android:textColor="@color/sunshine_light_grey"
+                android:textColor="@color/light_grey"
                 android:fontFamily="sans-serif-condensed"/>
 
         </LinearLayout>
@@ -49,7 +49,7 @@
                 android:id="@+id/detail_high_textview"
                 android:textSize="96sp"
                 android:fontFamily="sans-serif-light"
-                android:textColor="@color/sunshine_black"/>
+                android:textColor="@color/black"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -57,7 +57,7 @@
                 android:gravity="center"
                 android:id="@+id/detail_low_textview"
                 android:textSize="48sp"
-                android:textColor="@color/sunshine_light_grey"
+                android:textColor="@color/light_grey"
                 android:fontFamily="sans-serif-light"/>
 
             <TextView
@@ -100,7 +100,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/detail_forecast_textview"
                 android:textAppearance="?android:textAppearanceLarge"
-                android:textColor="@color/sunshine_light_grey"
+                android:textColor="@color/light_grey"
                 android:fontFamily="sans-serif-condensed"/>
 
         </LinearLayout>

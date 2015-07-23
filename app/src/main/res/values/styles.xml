@@ -1,9 +1,10 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="actionBarStyle">@style/ActionBar.Solid.Sunshine</item>
-
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
     </style>
 
     <!-- Main activity theme -->
@@ -14,7 +15,7 @@
     <!-- ActionBar style -->
     <style name="ActionBar.Solid.Sunshine"
         parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-        <item name="background">@color/sunshine_blue</item>
+        <item name="background">@color/primary</item>
     </style>
 
     <!-- Main activity action bar style -->
@@ -28,7 +29,7 @@
     </style>
 
     <style name="GreyText">
-        <item name="android:textColor">@color/sunshine_black</item>
+        <item name="android:textColor">@color/black</item>
         <item name="android:layout_marginBottom">4dp</item>
         <item name="android:textAppearance">?android:textAppearanceLarge</item>
     </style>
